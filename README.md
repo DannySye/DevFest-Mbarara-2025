@@ -72,9 +72,9 @@ gcloud services enable container.googleapis.com
 export CLUSTER_NAME="demo-cluster"
 export CLUSTER_REGION="us-central1"
 
-# What to say:
-# "I'll create a 3-node GKE cluster. This normally takes 5–10 minutes."
-gcloud container clusters create ${CLUSTER_NAME}     --region ${CLUSTER_REGION}     --num-nodes=3     --machine-type=e2-standard-2
+
+# Create a 3-node GKE cluster. This normally takes 5–10 minutes.
+gcloud container clusters create ${CLUSTER_NAME} --region ${CLUSTER_REGION} --num-nodes=1 --machine-type=e2-medium --disk-type=pd-standard --disk-size=15GB
 
 # Configure kubectl
 gcloud container clusters get-credentials ${CLUSTER_NAME} --region ${CLUSTER_REGION}
@@ -82,8 +82,7 @@ gcloud container clusters get-credentials ${CLUSTER_NAME} --region ${CLUSTER_REG
 # Verify nodes
 kubectl get nodes
 
-# What to say:
-# "You should see three Ready nodes. We're ready for Demo 1."
+# You should see three Ready nodes. We're ready for Demo 1.
 ```
 
 ---
@@ -126,6 +125,8 @@ spec:
             port: 8080
           initialDelaySeconds: 5
           periodSeconds: 5
+        command: ["/hello-app"]
+        args: ["-crash"]
 EOL
 ```
 
