@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: hello-app
+  name: guess-app
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: hello
+      app: guess
   template:
     metadata:
       labels:
-        app: hello
+        app: guess
     spec:
       containers:
-      - name: hello
-        image: gcr.io/google-samples/hello-app:2.0
+      - name: guess
+        image: us-central1-docker.pkg.dev/supple-serenity-458404-e9/gae-standard/app/default:0e5c5a19-942c-40ef-9191-5b7d2a2ba9d3
         ports:
         - containerPort: 8080
         livenessProbe:
