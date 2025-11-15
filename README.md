@@ -167,7 +167,7 @@ curl http://${SERVICE_IP}
 # Expect: "Hello, world!"
 ```
 
-### 4) Break the app (simulate crash)
+### 4) Break the app (simulate a crash)
 ```bash
 
 export POD_NAME=$(kubectl get pods -l app=hello -o jsonpath='{.items[0].metadata.name}')
@@ -182,7 +182,7 @@ kubectl exec -it ${POD_NAME} -- /bin/sh
 
 ### 5) Watch healing
 - Point attendees to the terminal showing pods: you'll see readiness/liveness fail, then a restart or new pod creation.
-- Explain that readinessProbe removes pod from service endpoints; livenessProbe triggers restarts.
+- Explain that readinessProbe removes the pod from service endpoints; livenessProbe triggers restarts.
 
 ---
 
@@ -245,7 +245,7 @@ kubectl get hpa -w
 ```bash
 # Terminal 2: wait for LB IP
 export PHP_IP=$(kubectl get service php-apache -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
-while [ -z "${PHP_IP}" ]; do
+while [ -z "$PHP_IP" ]; do
   sleep 2
   export PHP_IP=$(kubectl get service php-apache -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
 done
@@ -300,7 +300,7 @@ gcloud projects delete ${PROJECT_ID} --quiet
 ---
 
 ## Tips for Presenters
-- Use **three terminal tabs**: 1) `kubectl get pods -w`, 2) service/exec/load generator, 3) `kubectl get hpa -w` and other diagnostics.
+- Use **three terminal tabs**: 1) `kubectl get pods -w`, 2) service/exec/load generator, 3) `kubectl get hpa -w`, and other diagnostics.
 - Tell attendees to **replace placeholders** (`PROJECT_ID`, `BILLING_ID`) before running commands.
 - Mention billing and cleanup at the start so participants remember to delete resources.
 
